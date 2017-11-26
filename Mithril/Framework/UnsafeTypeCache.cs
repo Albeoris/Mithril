@@ -2,7 +2,7 @@
 using System.Reflection.Emit;
 using System.Runtime.InteropServices;
 
-namespace Pulse.Core
+namespace Mithril
 {
     public static class UnsafeTypeCache<T>
     {

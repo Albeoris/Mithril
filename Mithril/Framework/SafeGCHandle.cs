@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace Pulse.Core
+namespace Mithril
 {
     public sealed class SafeGCHandle : SafeHandle
     {

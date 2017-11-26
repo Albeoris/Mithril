@@ -1,36 +1,50 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace Mithril
 {
-    internal class StringContent : ICellContent
+    internal sealed class StringContent : ICellContent
     {
-        private readonly String _str;
+        private String _value;
 
-        public StringContent(String str)
+        public StringContent(String value)
         {
-            _str = str;
+            _value = value;
         }
 
-        public void Write(StreamWriter sw)
+        public void Write(FileStream decOutput, BinaryWriter decBw)
         {
-            if (_str.Contains(';'))
+            if (String.IsNullOrEmpty(_value))
             {
-                sw.Write('"');
-                WriteStr(sw);
-                sw.Write('"');
+                decBw.Write((Int32)0);
             }
             else
             {
-                WriteStr(sw);
+                Encoding encoder = Encoding.UTF8;
+                Int32 byteCount = encoder.GetByteCount(_value) + 1; // \0
+
+                Int32 delta = byteCount % 4;
+                if (delta != 0)
+                    byteCount += (4 - delta);
+
+                Byte[] data = new Byte[byteCount];
+                encoder.GetBytes(_value, 0, _value.Length, data, 0);
+
+                decOutput.Write(data, 0, data.Length);
             }
         }
 
-        private void WriteStr(StreamWriter sw)
+        public void Write(CsvWriter cw)
         {
-            String str = _str.Replace("\"", "\"\"");
-            sw.Write(str);
+            String str = _value.Replace("\r\n", "{NewLine}");
+            cw.String(str);
+        }
+
+        public void ParseValue(String value)
+        {
+            _value = value.Replace("{NewLine}", "\r\n");
         }
     }
 }

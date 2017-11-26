@@ -1,7 +1,10 @@
 # Mithril
-Resource Extractor for the game "World of Final Fantasy"
+Resource manager for the game "World of Final Fantasy"
 
 # Usage
-	Mithril.exe "GamePath" [-d] [-c]
+	Mithril.exe "GamePath" [-r] [-d] [-tf] [-tb] [-c]
+		-r - Restore .csh from .bak
 		-d - Decompress .csh to .dec
-		-c - Convert .dec to .csv
+		-tf - Transform .dec to .csv
+		-tb - Transform .csv to .dec
+		-c - Compress .dec to .csh

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Pulse.Core
+namespace Mithril
 {
     public static class TypeCache<T>
     {

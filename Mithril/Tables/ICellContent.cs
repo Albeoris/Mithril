@@ -4,6 +4,7 @@ namespace Mithril
 {
     interface ICellContent
     {
-        void Write(StreamWriter sw);
+        void Write(FileStream decOutput, BinaryWriter decBw);
+        void Write(CsvWriter cw);
     }
 }
